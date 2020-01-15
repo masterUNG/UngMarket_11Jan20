@@ -80,13 +80,35 @@ class _MyServiceState extends State<MyService> {
     );
   }
 
+  Widget showIcon(IconData iconData) {
+    return Icon(
+      iconData,
+      color: Colors.white,
+    );
+  }
+
   Widget showUserDrawerHeader() {
     return UserAccountsDrawerHeader(
       decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('images/wall.jpg'))),
-      accountName: Text('Login by $displayName', style: MyStyle().h2Text,),
-      accountEmail: Text(email, style: TextStyle(color: Colors.white),),
+        image: DecorationImage(
+          image: AssetImage('images/wall.jpg'),
+        ),
+      ),
+      accountName: Text(
+        'Login by $displayName',
+        style: MyStyle().h2Text,
+      ),
+      accountEmail: Text(
+        email,
+        style: TextStyle(color: Colors.white),
+      ),
       currentAccountPicture: showAvatar(),
+      otherAccountsPictures: <Widget>[
+        showIcon(Icons.filter_1),
+        showIcon(Icons.filter_2),
+        showIcon(Icons.filter_3),
+        // showIcon(Icons.filter_4),
+      ],
     );
   }
 
