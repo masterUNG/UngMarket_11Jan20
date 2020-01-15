@@ -12,7 +12,7 @@ class MyService extends StatefulWidget {
 
 class _MyServiceState extends State<MyService> {
   // Field
-  String displayName = '', urlAvatar;
+  String displayName = '', email = '', urlAvatar;
   Widget currentWidget = ShowProduct();
 
   // Method
@@ -27,6 +27,7 @@ class _MyServiceState extends State<MyService> {
     FirebaseUser firebaseUser = await firebaseAuth.currentUser();
     setState(() {
       displayName = firebaseUser.displayName;
+      email = firebaseUser.email;
       urlAvatar = firebaseUser.photoUrl;
     });
   }
@@ -76,6 +77,16 @@ class _MyServiceState extends State<MyService> {
           showDisplayName(),
         ],
       ),
+    );
+  }
+
+  Widget showUserDrawerHeader() {
+    return UserAccountsDrawerHeader(
+      decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('images/wall.jpg'))),
+      accountName: Text('Login by $displayName', style: MyStyle().h2Text,),
+      accountEmail: Text(email, style: TextStyle(color: Colors.white),),
+      currentAccountPicture: showAvatar(),
     );
   }
 
@@ -136,7 +147,8 @@ class _MyServiceState extends State<MyService> {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          showHead(),
+          // showHead(),
+          showUserDrawerHeader(),
           menuHome(),
           Divider(),
           menuInfo(),
@@ -153,7 +165,6 @@ class _MyServiceState extends State<MyService> {
       appBar: AppBar(),
       drawer: showDrawer(),
       body: currentWidget,
-      
     );
   }
 }
